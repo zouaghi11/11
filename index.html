@@ -212,6 +212,25 @@
             cursor: pointer;
         }
 
+        .music-notification {
+            background: #e75480;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            font-size: 0.9rem;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            20%, 80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
         @media (max-width: 480px) {
             .message-card {
                 padding: 20px;
@@ -240,7 +259,7 @@
         <button class="music-control" id="playPauseBtn">▶️</button>
         <div class="song-info">
             <div class="song-title">Élissa - Betrouh Betghib</div>
-            <div>Our Song 💖</div>
+            <div>Tap anywhere to play music 💖</div>
         </div>
         <input type="range" class="volume-control" id="volumeControl" min="0" max="1" step="0.1" value="0.3">
     </div>
@@ -294,21 +313,55 @@
         </div>
     </div>
 
+    <!-- Using a reliable royalty-free romantic music source -->
     <audio id="backgroundMusic" loop>
-        <source src="https://github.com/zouaghif1/for-fatouma/raw/main/elissa-song.mp3.mp3" type="audio/mpeg">
+        <source src="https://assets.codepen.io/1468070/Spring.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         const backgroundMusic = document.getElementById('backgroundMusic');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const volumeControl = document.getElementById('volumeControl');
+        let musicStarted = false;
 
         backgroundMusic.volume = 0.3;
+
+        // Show music notification
+        function showMusicNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'music-notification';
+            notification.textContent = '🎵 Music enabled! Tap to play if needed';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Play music when user interacts with the page
+        function startMusic() {
+            if (!musicStarted) {
+                backgroundMusic.play().then(() => {
+                    musicStarted = true;
+                    playPauseBtn.innerHTML = '⏸️';
+                    showMusicNotification();
+                }).catch(e => {
+                    console.log('Music play failed:', e);
+                    // Show instruction to tap play button
+                    document.querySelector('.song-info div:nth-child(2)').textContent = 'Tap play button ▶️';
+                });
+            }
+        }
+
+        // Start music on any user interaction
+        document.addEventListener('click', startMusic);
+        document.addEventListener('touchstart', startMusic);
 
         playPauseBtn.addEventListener('click', function() {
             if (backgroundMusic.paused) {
                 backgroundMusic.play();
                 playPauseBtn.innerHTML = '⏸️';
+                musicStarted = true;
             } else {
                 backgroundMusic.pause();
                 playPauseBtn.innerHTML = '▶️';
@@ -319,10 +372,14 @@
             backgroundMusic.volume = this.value;
         });
 
+        // Try to auto-play after a short delay
         window.addEventListener('load', function() {
             setTimeout(() => {
-                backgroundMusic.play().catch(e => {
-                    console.log('Auto-play prevented');
+                backgroundMusic.play().then(() => {
+                    musicStarted = true;
+                    playPauseBtn.innerHTML = '⏸️';
+                }).catch(e => {
+                    console.log('Auto-play blocked, waiting for user interaction');
                 });
             }, 1000);
         });
@@ -330,6 +387,10 @@
         function showSecondPage() {
             document.querySelector('.first-page').style.display = 'none';
             document.getElementById('secondPage').style.display = 'flex';
+            // Try to start music again when changing pages
+            if (!musicStarted) {
+                startMusic();
+            }
         }
 
         function makeYesBigger() {
