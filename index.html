@@ -106,35 +106,42 @@
             font-weight: bold;
         }
 
+        /* HORIZONTAL BUTTON LAYOUT */
         .button-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 15px;
             margin: 30px 0;
+            justify-content: center;
+            align-items: center;
         }
 
         .yes-button {
             background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
             border: none;
-            padding: 18px 50px;
+            padding: 18px 30px;
             border-radius: 30px;
             font-size: 1.3rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            flex: 1;
+            max-width: 140px;
         }
 
         .no-button {
             background: linear-gradient(135deg, #ff6b6b 0%, #e75480 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 25px;
             border-radius: 30px;
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            flex: 1;
+            max-width: 140px;
         }
 
         .yes-button:hover, .no-button:hover {
@@ -231,6 +238,31 @@
             20%, 80% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
+        /* HORIZONTAL HEADER STYLE */
+        .horizontal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .horizontal-header h2 {
+            color: #e75480;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .heart-icon {
+            font-size: 2rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
         @media (max-width: 480px) {
             .message-card {
                 padding: 20px;
@@ -250,6 +282,21 @@
                 right: 10px;
                 left: 10px;
                 justify-content: center;
+            }
+            
+            .button-container {
+                flex-direction: row;
+                gap: 10px;
+            }
+            
+            .yes-button, .no-button {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+                max-width: 120px;
+            }
+            
+            .horizontal-header h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -294,11 +341,18 @@
         <div class="sticker">🥰</div>
         
         <div class="message-card">
-            <h2>For My Fatouma</h2>
+            <!-- HORIZONTAL HEADER -->
+            <div class="horizontal-header">
+                <div class="heart-icon">💖</div>
+                <h2>For My Fatouma</h2>
+                <div class="heart-icon">💖</div>
+            </div>
+            
             <p class="question">Will you go out on a first date with me?</p>
             <p>Let's create new beautiful memories together</p>
         </div>
         
+        <!-- HORIZONTAL BUTTONS -->
         <div class="button-container">
             <button class="yes-button" id="yesButton" onclick="sendWhatsAppMessage()">
                 YES! 💝
@@ -313,7 +367,7 @@
         </div>
     </div>
 
-    <!-- Using a reliable royalty-free romantic music source -->
+    <!-- AUDIO SECTION - THIS WAS MISSING -->
     <audio id="backgroundMusic" loop>
         <source src="https://assets.codepen.io/1468070/Spring.mp3" type="audio/mpeg">
     </audio>
@@ -399,7 +453,7 @@
             const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             
             yesButton.style.fontSize = (currentSize + 4) + 'px';
-            yesButton.style.padding = '22px 58px';
+            yesButton.style.padding = '22px 35px';
             
             const messages = [
                 "Are you sure? 🥺",
