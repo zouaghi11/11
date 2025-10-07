@@ -3,124 +3,205 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For My Fatouma ❤️</title>
+  <title>For My Fatouma 💖</title>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: linear-gradient(to right, #ffe6f0, #fff0f5);
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      text-align: center;
-      color: #d63384;
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin-top: 30px;
-    }
-
-    #story {
-      text-align: left;
-      max-width: 600px;
-      margin: 20px auto 40px 20px; /* shifted left */
-      background: rgba(255, 255, 255, 0.6);
-      padding: 15px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(214, 51, 132, 0.3);
-    }
-
-    .btn-container {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      color: #5a3d2b;
     }
-
-    button {
-      background-color: #ff80ab;
-      border: none;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: 0.3s;
+    .container { max-width: 400px; width: 100%; text-align: center; }
+    .heart-header {
+      font-size: 3rem; margin-bottom: 20px; animation: float 3s ease-in-out infinite;
     }
-
-    button:hover {
-      background-color: #f06292;
-      transform: scale(1.1);
+    @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
+    .message-card {
+      background: rgba(255,255,255,0.95); border-radius: 20px; padding: 30px;
+      margin: 20px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); backdrop-filter: blur(10px);
     }
-
-    #playPauseBtn {
-      background-color: #ffb6c1;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      border-radius: 50%;
-      padding: 15px;
-      font-size: 1.2em;
+    h1 { color:#e75480; margin-bottom:15px; font-size:1.8rem; }
+    p { line-height:1.6; margin-bottom:15px; font-size:1.1rem; }
+    .apology-text { font-style:italic; color:#666; margin:20px 0; }
+    .cta-button {
+      background:linear-gradient(135deg,#e75480 0%,#ff6b6b 100%);
+      color:white; border:none; padding:15px 40px; border-radius:30px; font-size:1.2rem;
+      cursor:pointer; margin:20px 0; transition:all .3s ease;
+      box-shadow:0 5px 15px rgba(231,84,128,.3);
+    }
+    .cta-button:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(231,84,128,.4); }
+    .second-page { display:none; flex-direction:column; align-items:center; }
+    .sticker { font-size:8rem; margin:20px 0; animation:bounce 2s ease-in-out infinite; }
+    @keyframes bounce {0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+    .question { font-size:1.5rem; color:#e75480; margin:20px 0; font-weight:bold; }
+    .button-container { display:flex; flex-direction:column; gap:15px; margin:30px 0; align-items:center; }
+    .yes-button, .no-button {
+      color:white; border:none; border-radius:30px; font-size:1.2rem; cursor:pointer;
+      transition:all .3s ease; width:200px; box-shadow:0 5px 15px rgba(0,0,0,.1);
+    }
+    .yes-button {
+      background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);
+      padding:18px 50px; font-size:1.3rem; box-shadow:0 5px 15px rgba(76,175,80,.3);
+    }
+    .no-button {
+      background:linear-gradient(135deg,#ff6b6b 0%,#e75480 100%);
+      padding:15px 40px; box-shadow:0 5px 15px rgba(255,107,107,.3);
+    }
+    .yes-button:hover, .no-button:hover { transform:translateY(-2px); }
+    .footer { margin-top:20px; font-style:italic; color:#666; font-size:.9rem; text-align:left; width:100%; padding-left:20px; }
+    .music-player {
+      position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.9);
+      padding:10px 15px; border-radius:25px; box-shadow:0 4px 15px rgba(0,0,0,.1);
+      display:flex; align-items:center; gap:10px; z-index:1000; backdrop-filter:blur(10px);
+    }
+    .music-control {
+      background:#e75480; color:white; border:none; width:40px; height:40px;
+      border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem; transition:all .3s ease;
+    }
+    .music-control:hover { transform:scale(1.1); background:#ff6b6b; }
+    .song-info { font-size:.8rem; color:#666; text-align:left; }
+    .song-title { font-weight:bold; color:#e75480; }
+    .volume-control {
+      width:80px; height:4px; background:#ddd; border-radius:2px; outline:none; -webkit-appearance:none;
+    }
+    .volume-control::-webkit-slider-thumb {
+      -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:#e75480; cursor:pointer;
+    }
+    .horizontal-header {
+      display:flex; align-items:center; justify-content:center; gap:15px; margin:20px 0;
+    }
+    .horizontal-header h2 { color:#e75480; font-size:1.8rem; margin:0; }
+    .heart-icon { font-size:2rem; animation:heartbeat 1.5s ease-in-out infinite; }
+    @keyframes heartbeat {0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+    @media(max-width:480px){
+      .message-card{padding:20px;margin:10px 0}
+      h1{font-size:1.5rem}
+      .sticker{font-size:6rem}
+      .music-player{bottom:10px;right:10px;left:10px;justify-content:center}
+      .footer{padding-left:10px}
     }
   </style>
 </head>
-
 <body>
-  <h1>For my Fatouma ❤️</h1>
-
-  <div class="btn-container">
-    <button onclick="alert('Yay! I knew you still love me 😘')">Yes 💕</button>
-    <button onclick="alert('No? 😭 okay... but I’ll still love you 🥺')">No 💔</button>
+  <div class="music-player" id="musicPlayer">
+    <button class="music-control" id="playPauseBtn">▶️</button>
+    <div class="song-info">
+      <div class="song-title">Élissa - Betrouh Betghib</div>
+      <div>Tap to play music 💖</div>
+    </div>
+    <input type="range" class="volume-control" id="volumeControl" min="0" max="1" step="0.1" value="0.3">
   </div>
 
-  <div id="story">
-    <p><strong>Our story...</strong><br>
-      We laughed, we fought, we shared moments no one else will ever understand.  
-      I messed up, and I regret it deeply. I hope one day we can replay our best
-      memories — not just in my head, but together again 💖.
-    </p>
+  <div class="container first-page">
+    <div class="heart-header">💖</div>
+    <div class="message-card">
+      <h1>My Dearest Fatouma</h1>
+      <p>Every day without you feels incomplete. I've had so much time to reflect, and I realize how precious what we had truly was.</p>
+      <p class="apology-text">I'm deeply sorry for the pain I caused. You are the most amazing person I've ever known, and I miss you more than words can express.</p>
+      <p>Our memories together are treasures I hold close to my heart. The laughter, the dreams, the way your eyes light up when you smile...</p>
+      <p>I believe in us, and I believe in the beautiful connection we shared. You are worth fighting for, and I'm willing to do whatever it takes to earn back your trust.</p>
+      <p>Will you let me show you how much I've grown and how serious I am about us?</p>
+    </div>
+    <button class="cta-button" onclick="showSecondPage()">See What's in My Heart 💌</button>
+    <div class="footer">Made with love, just for you</div>
   </div>
 
-  <audio id="backgroundMusic" preload="auto" playsinline>
-    <source src="https://github.com/zouaghif1/for-fatouma/raw/main/elissa-song.mp3.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+  <div class="container second-page" id="secondPage">
+    <div class="sticker">🥰</div>
+    <div class="message-card">
+      <div class="horizontal-header">
+        <div class="heart-icon">💖</div>
+        <h2>For My Fatouma</h2>
+        <div class="heart-icon">💖</div>
+      </div>
+      <p class="question">Will you go out on a first date with me?</p>
+      <p>Let's create new beautiful memories together</p>
+    </div>
+    <div class="button-container">
+      <button class="yes-button" id="yesButton" onclick="sendWhatsAppMessage()">YES! 💝</button>
+      <button class="no-button" id="noButton" onclick="makeYesBigger()">No 😔</button>
+    </div>
+    <div class="footer">Our story isn't over yet...</div>
+  </div>
+
+  <!-- MUSIC -->
+  <audio id="backgroundMusic" preload="auto" playsinline loop>
+    <source src="elissa-song.mp3.mp3" type="audio/mpeg">
   </audio>
-
-  <button id="playPauseBtn">▶️</button>
 
   <script>
     const backgroundMusic = document.getElementById('backgroundMusic');
     const playPauseBtn = document.getElementById('playPauseBtn');
+    const volumeControl = document.getElementById('volumeControl');
+    backgroundMusic.volume = 0.3;
+
+    // --- Auto-start at 17s when ready ---
     const START_AT_SECONDS = 17;
-
-    function playFrom17() {
-      backgroundMusic.play().then(() => {
-        // Safari requires playback to start before seeking
-        setTimeout(() => {
-          try {
-            backgroundMusic.currentTime = START_AT_SECONDS;
-          } catch (e) {
-            console.warn('Seek failed:', e);
-          }
-        }, 200);
-        playPauseBtn.innerHTML = '⏸️';
-      }).catch(err => console.warn('Playback failed:', err));
+    function startMusicFrom17s() {
+      if (backgroundMusic.readyState >= 1) {
+        try { backgroundMusic.currentTime = START_AT_SECONDS; } catch(e){}
+        backgroundMusic.play().then(()=> playPauseBtn.innerHTML='⏸️')
+          .catch(err=>console.warn('Autoplay blocked:', err));
+      } else {
+        backgroundMusic.addEventListener('loadedmetadata', ()=>{
+          try { backgroundMusic.currentTime = START_AT_SECONDS; } catch(e){}
+          backgroundMusic.play().then(()=> playPauseBtn.innerHTML='⏸️')
+            .catch(err=>console.warn('Autoplay blocked:', err));
+        });
+      }
     }
+    window.addEventListener('load', startMusicFrom17s);
 
-    window.addEventListener('load', () => {
-      // Try autoplay (will be blocked on iPhone)
-      playFrom17();
+    // Manual play/pause & volume
+    playPauseBtn.addEventListener('click', ()=>{
+      if(backgroundMusic.paused){backgroundMusic.play();playPauseBtn.innerHTML='⏸️';}
+      else{backgroundMusic.pause();playPauseBtn.innerHTML='▶️';}
     });
+    volumeControl.addEventListener('input', ()=> backgroundMusic.volume = volumeControl.value);
 
-    if (playPauseBtn) {
-      playPauseBtn.addEventListener('click', () => {
-        if (backgroundMusic.paused) {
-          playFrom17();
-        } else {
-          backgroundMusic.pause();
-          playPauseBtn.innerHTML = '▶️';
-        }
-      });
+    function showSecondPage() {
+      document.querySelector('.first-page').style.display = 'none';
+      document.getElementById('secondPage').style.display = 'flex';
     }
+    function makeYesBigger() {
+      const yes = document.getElementById('yesButton');
+      const no = document.getElementById('noButton');
+      const size = parseFloat(window.getComputedStyle(yes).fontSize);
+      yes.style.fontSize = (size + 4) + 'px';
+      yes.style.padding = '22px 58px';
+      const msgs = ["Are you sure? 🥺","Pretty please? 💕","Think about our memories! 🌸","I really mean it this time! ✨","You're my everything! 💫","I'll never give up on us! 💖","Give me one more chance? 🌹","My heart is yours forever 💌"];
+      no.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+    }
+    function sendWhatsAppMessage() {
+      const phone = '21696689103';
+      const msg = "I will give you a second chance 💖";
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+      document.querySelector('.sticker').textContent = '🎉💝🎊';
+      document.querySelector('.question').innerHTML = "You've made me the happiest person!<br>Check your WhatsApp! 💌";
+      document.querySelector('.button-container').innerHTML = `<div style="color:#4CAF50;font-size:1.3rem;margin:20px 0;">💝 Thank you for this chance! ✨</div>`;
+    }
+
+    // Floating hearts
+    setInterval(()=>{
+      const heart=document.createElement('div');
+      heart.innerHTML='💖'; heart.style.position='fixed';
+      heart.style.left=Math.random()*100+'vw';
+      heart.style.top='100vh'; heart.style.fontSize=(Math.random()*20+10)+'px';
+      heart.style.opacity='0.7'; heart.style.pointerEvents='none'; heart.style.zIndex='9999';
+      heart.style.animation=`floatUp ${Math.random()*3+2}s linear forwards`;
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),5000);
+    },3000);
+
+    const style=document.createElement('style');
+    style.textContent=`@keyframes floatUp{0%{transform:translateY(0) rotate(0);opacity:.7}100%{transform:translateY(-100vh) rotate(360deg);opacity:0}}`;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
